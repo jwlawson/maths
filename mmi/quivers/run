@@ -17,9 +17,9 @@ rep_loc="/home/grads/njcz19/result"
 start='<!DOCTYPE html>
 <html>
 <head>
-	<!--[if lt IE 9]>
-	<script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/r29/html5.min.js"></script>
-	<![endif]-->
+  <!--[if lt IE 9]>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/r29/html5.min.js"></script>
+  <![endif]-->
   <title>Minimal mutation-infinite quivers</title>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="chrome=1">
@@ -32,18 +32,18 @@ start='<!DOCTYPE html>
 <nav class="navbar navbar-static-top navbar-default" role="navigation">
 <div class="container">
 <ul class="nav navbar-nav">
-	<li>
-		<a href="../">MMI</a>
-	</li>
-	<li>
-		<a href="../software/">Software</a>
-	</li>
-	<li class=active>
-		<a href="../quivers/">MMI quivers database</a>
-	</li>
-	<li>
-		<a href="../finite/">Mutation-finite quivers</a>
-	</li>
+  <li>
+    <a href="../">MMI</a>
+  </li>
+  <li>
+    <a href="../software/">Software</a>
+  </li>
+  <li class=active>
+    <a href="../quivers/">MMI quivers database</a>
+  </li>
+  <li>
+    <a href="../finite/">Mutation-finite quivers</a>
+  </li>
 </ul>
 </div>
 </nav>
@@ -53,7 +53,7 @@ start='<!DOCTYPE html>
 
 end='</div>
 <div class="col-md-3 col-xs-8 col-xs-offset-2 col-md-offset-0 sidebar" role="complementary">
-	<div class="fix-space visible-sm-block visible-xs-block"></div>
+  <div class="fix-space visible-sm-block visible-xs-block"></div>
 '"${sidebar}"'
 </div>
 </div>'
