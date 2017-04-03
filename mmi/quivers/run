@@ -104,18 +104,18 @@ function write_html {
 			echo "<div class="\""row quiver-list"\""><!--" >> "${index}"
 			inside=true
 		fi
-		echo "--!><div class="\""col-sm-4 col-xs-12 vertical-align"\"">
+		echo "--><div class="\""col-sm-4 col-xs-12 vertical-align"\"">
 			<a href="\""./`basename ${folder}`"\""><img src="\""./img/`basename ${folder}`.png"\""></a>
 		</div><!--" >> "${index}"
 		if [ ${rem} -eq 2 ]
 		then
-			echo "--!></div>" >> "${index}"
+			echo "--></div>" >> "${index}"
 			inside=false
 		fi
 	done
 	if [ "${inside}" = "true" ]
 	then
-		echo "--!></div>" >> "${index}"
+		echo "--></div>" >> "${index}"
 	fi
 }
 

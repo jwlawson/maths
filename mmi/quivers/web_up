@@ -79,19 +79,19 @@ do
 			echo "<div class="\""row quiver-list"\""><!--" >> "${page}"
 			inside=true
 		fi
-		echo "--!><div class="\""col-sm-4 col-xs-12 vertical-align"\"">
+		echo "--><div class="\""col-sm-4 col-xs-12 vertical-align"\"">
 			<img src="\""${idir}/${i}/`basename ${file}`"\"">
 		</div><!--" >> "${page}"
 		if [ ${rem} -eq 2 ]
 		then
-			echo "--!></div>" >> "${page}"
+			echo "--></div>" >> "${page}"
 			inside=false
 		fi
 		(( ++count ))
 	done
 	if [ ${inside} = "true" ]
 	then
-		echo "--!></div>" >> "${page}"
+		echo "--></div>" >> "${page}"
 	fi
 	echo "${end}" >> ${page}
 	
@@ -101,18 +101,18 @@ do
 		echo "<div class="\""row quiver-list"\""><!--" >> "${index}"
 		i_ins=true
 	fi
-	echo "--!><div class="\""col-sm-4 col-xs-12 vertical-align"\"">
+	echo "--><div class="\""col-sm-4 col-xs-12 vertical-align"\"">
 		<a href="\""./${page}"\""><img src="\""${idir}/${i}.png"\""></a>
 	</div><!--" >> "${index}"
 	if [ ${i_rem} -eq 2 ]
 	then
-		echo "--!></div>" >> "${index}"
+		echo "--></div>" >> "${index}"
 		i_ins=false
 	fi
 done
 
 if [ ${i_ins} ]
 then
-	echo "--!></div>" >> "${index}"
+	echo "--></div>" >> "${index}"
 fi
 echo "${end}" >> "${index}"
