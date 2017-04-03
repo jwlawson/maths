@@ -68,19 +68,19 @@ do
 			echo "<div class="\""row quiver-list"\""><!--" >> "${page}"
 			inside=true
 		fi
-		echo "--!><div class="\""col-sm-4 col-xs-12 vertical-align"\"">
+		echo "--><div class="\""col-sm-4 col-xs-12 vertical-align"\"">
 			<img src="\""${idir}/${i}/`basename ${file}`"\"">
 		</div><!--" >> "${page}"
 		if [ ${rem} -eq 2 ]
 		then
-			echo "--!></div>" >> "${page}"
+			echo "--></div>" >> "${page}"
 			inside=false
 		fi
 		(( ++count ))
 	done
 	if [ ${inside} = "true" ]
 	then
-		echo "--!></div>" >> "${page}"
+		echo "--></div>" >> "${page}"
 	fi
 	echo "${end}" >> ${page}
 	chmod o+r ${page}
