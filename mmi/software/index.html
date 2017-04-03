@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<!--[if lt IE 9]>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/r29/html5.min.js"></script>
+	<![endif]-->
+  <title>Quiver software suite</title>
+  <meta charset='utf-8'>
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../style.css">
+  <link href='http://fonts.googleapis.com/css?family=Roboto:100' rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+<nav class="navbar navbar-static-top navbar-default" role="navigation">
+<div class="container">
+<ul class="nav navbar-nav">
+	<li>
+		<a href="../">MMI</a>
+	</li>
+	<li class=active>
+		<a href="../software/">Software</a>
+	</li>
+	<li>
+		<a href="../quivers/">MMI quivers database</a>
+	</li>
+	<li>
+		<a href="../finite/">Mutation-finite quivers</a>
+	</li>
+</ul>
+</div>
+</nav>
+<div class="container">
+ 
+<div class="row">
+<div class="col-md-9 col-xs-12 main-text" role="main">
+	<h1>Quiver software suite</h1>
+	<p>Suite of programs to perform calculations with quivers.</p>
+
+	<h3 id="libqv"><a href="https://github.com/jwlawson/qv">libqv</a></h3>
+
+	<p><code>libqv</code> is the main library which contains the algorithms and data structures
+	which the other programs all depend upon.</p>
+
+	<p>This contains a suite of unit tests which run using <a href="https://code.google.com/p/googletest/">googletest</a>. The googletest
+	libraries must be installed should you wish to run these tests. Otherwise the
+	library can be built without building the tests.</p>
+
+	<h3 id="qvtrim"><a href="https://github.com/jwlawson/qvtrim">qvtrim</a></h3>
+
+	<p><code>qvtrim</code> is a program to filter the output of other qv* programs to extract
+	useful information. Full details can be found on the project page.</p>
+
+	<p>The main use of this is to filter an output to prevent any repeated matrices
+	from being shown, or to extract all matrices which are mutation-equivalent.</p>
+
+	<h3 id="qvmmi"><a href="https://github.com/jwlawson/qvmmi">qvmmi</a></h3>
+
+	<p><code>qvmmi</code> is a program designed to run using MPI. This allows it to run on large
+	distributed systems such as supercomputers.</p>
+
+	<p>The program takes a file of mutation-finite quivers as input, tries to add a
+	vertex to each in as many ways as it can and checks if the resulting quivers are
+	minimal mutation-infinite quivers.</p>
+
+	<p>The parallelization is achieved by having a single master node read the input
+	and add the vertices to each quiver. The master then passes the resulting
+	quivers to the slave nodes to check whether they are minimal mutation-infinite.</p>
+
+	<h3 id="qvfin"><a href="https://github.com/jwlawson/qvfin">qvfin</a></h3>
+
+	<p><code>qvfin</code> constructs all mutation-finite quivers of a given size. The program
+	itself is a script which relies upon <code>qvtrim</code> and a program <code>qvfex</code> included in
+	qvfin project page.  </p>
+
+	<p><code>qvfex</code> checks all possible mutation-finite extensions of each matrix provided
+	to it and outputs any which are mutation-finite.</p>
+
+	<h3 id="qvmove"><a href="https://github.com/jwlawson/qvmove">qvmove</a></h3>
+	<p><code>qvmove</code> is a program to check the number of moves required to
+	transform the input matrices to one of the class representatives. The output
+	contains the number of moves and the number of sink-source mutations required
+	for each input.</p>
+	<p>Included in the repository is also <code>qvmovecl</code> which takes a
+	representative as input and computes the entire move class for that
+	representative. This was used in putting together the <a href="../quivers/">
+	minimal	mutation-infinite quiver database</a>.</p>
+
+	<h3 id="qvdraw"><a href="https://github.com/jwlawson/qvdraw">qvdraw</a></h3>
+
+	<p><code>qvdraw</code> is a script which uses <a href="http://www.ogdf.net/doku.php/project:gml2pic">gml2pic</a> and the <a href="http://www.ogdf.net/ogdf.php">OGDF</a> library to draw
+	pictures of the quivers output from qv* programs.</p>
+
+	<p>The script uses two small programs <code>qv2gml</code> and <code>gmlayout</code> to construct a file
+	to pass to <code>gml2pic</code>. These are available on the <code>qvdraw</code> project page.</p>
+</div>
+<div class="col-md-3 col-xs-8 col-xs-offset-2 col-md-offset-0 sidebar" role="complementary">
+	<div class="fix-space visible-sm-block visible-xs-block"></div>
+	<p>Supplements work done by John Lawson at Durham University during his PhD
+	studies under the supervision of Pavel Tumarkin. The author was	supported by
+	an EPSRC PhD studentship.</p>
+	<h4>Related links</h4>
+	<ul class="nav nav-pills">
+		<li><a href="http://arxiv.org/abs/1505.01735">Preprint</a></li>
+		<li><a href="http://www.jwlawson.co.uk">Author's personal webpage</a></li>
+		<li><a href="//www.maths.dur.ac.uk/users/j.w.lawson/">Author's Durham webpage</a></li>
+		<li><a href="http://www.epsrc.ac.uk">EPSRC</a></li>
+		<li><a href="//www.dur.ac.uk/mathematical.sciences/">Durham mathematics dept</a></li>
+	</ul>
+</div>
+</div>
+
+</div>
+</body>
+</html>
+

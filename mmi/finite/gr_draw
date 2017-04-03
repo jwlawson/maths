@@ -1,0 +1,27 @@
+#!/bin/bash
+
+function compress {
+	pics=*.png
+	for p in ${pics}
+	do
+		convert ${p} -quality 90 -colors 16 -depth 4 ${p}
+	done
+	chmod o+r ${pics}
+}
+
+size="$1"
+dir="/home/grads/njcz19/result/finite"
+fin="${dir}/${size}"_fin
+cl="${dir}/${size}"_cl
+count=1
+while read matrix
+do
+	mkdir -p ${count}
+	cd ${count}
+	qvtrim -l -m "${matrix}" -i ${fin} | qvtrim -r | qvdraw -o "-width 225"
+	compress
+	cd ..
+	(( count++ ))
+done < ${cl}
+qvdraw -o "-width 225" ${cl}
+compress

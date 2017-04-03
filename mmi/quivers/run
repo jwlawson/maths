@@ -1,0 +1,147 @@
+#!/bin/bash
+pushd . > /dev/null
+SCRIPT_PATH="${BASH_SOURCE[0]}";
+if ([ -h "${SCRIPT_PATH}" ]) then
+  while([ -h "${SCRIPT_PATH}" ]) do cd `dirname "$SCRIPT_PATH"`; SCRIPT_PATH=`readlink "${SCRIPT_PATH}"`; done
+fi
+cd `dirname ${SCRIPT_PATH}` > /dev/null
+SCRIPT_PATH=`pwd`;
+popd  > /dev/null
+bin="${SCRIPT_PATH}"
+base="${SCRIPT_PATH}"
+idir="${base}/img"
+index="${base}/index.html"
+rep_loc="/home/grads/njcz19/result"
+
+
+start='<!DOCTYPE html>
+<html>
+<head>
+	<!--[if lt IE 9]>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/r29/html5.min.js"></script>
+	<![endif]-->
+  <title>Minimal mutation-infinite quivers</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+<nav class="navbar navbar-static-top navbar-default" role="navigation">
+<div class="container">
+<ul class="nav navbar-nav">
+	<li>
+		<a href="../">MMI</a>
+	</li>
+	<li>
+		<a href="../software/">Software</a>
+	</li>
+	<li class=active>
+		<a href="../quivers/">MMI quivers database</a>
+	</li>
+	<li>
+		<a href="../finite/">Mutation-finite quivers</a>
+	</li>
+</ul>
+</div>
+</nav>
+<div class="container">
+<div class="row">
+<div class="col-md-9 col-xs-12 main-text" role="main">'
+
+end='</div>
+<div class="col-md-3 col-xs-8 col-xs-offset-2 col-md-offset-0 sidebar" role="complementary">
+	<div class="fix-space visible-sm-block visible-xs-block"></div>
+'"${sidebar}"'
+</div>
+</div>'
+
+main='<h1>Minimal mutation-infinite quivers</h1>
+	<p>Below is a list of all the class representatives of the minimal
+	mutation-infinite quiver classes. All mutation-infinite 3 vertex quivers are
+	minimal mutation-infinite and are not pictured.</p>
+	<p>Clicking on a quiver will lead to a page	showing all quivers in that
+	class.</p>'
+hcs='<h3>Coxeter diagram representatives</h3>'
+da='<h3>Double arrow representatives</h3>'
+exc='<h3>Exceptional representatives</h3>'
+
+function go {
+	name="$1"
+	shift
+	matrix="$@"
+	echo "Name: ${name}, Matrix: ${matrix}"
+	cd "${base}"
+	mkdir -p "img/${name}"
+	cd "img/${name}"
+#	${bin}/gr_draw "${matrix}"
+	cd "${base}"
+	mkdir -p "${name}"
+	cd "${name}"
+	bash ${bin}/web_up
+	cd "${idir}"
+	qvdraw -o "-width 225" <( echo "${matrix}" )
+	convert 1.png -quality 90 -colors 16 -depth 4 1.png
+	mv 1.png "${name}".png
+	chmod o+r "${name}".png
+	cd "${base}"
+}
+
+function write_html {
+	count=0
+	inside=false
+	dir=`dirname $1`
+	prefix=`basename $1`
+	folders=`ls ${dir} | grep ${prefix} | sort -V`
+	for folder in ${folders}
+	do
+		rem=$((count % 3))
+		(( count++ ))
+		if [ ${rem} -eq 0 ]
+		then
+			echo "<div class="\""row quiver-list"\""><!--" >> "${index}"
+			inside=true
+		fi
+		echo "--!><div class="\""col-sm-4 col-xs-12 vertical-align"\"">
+			<a href="\""./`basename ${folder}`"\""><img src="\""./img/`basename ${folder}`.png"\""></a>
+		</div><!--" >> "${index}"
+		if [ ${rem} -eq 2 ]
+		then
+			echo "--!></div>" >> "${index}"
+			inside=false
+		fi
+	done
+	if [ "${inside}" = "true" ]
+	then
+		echo "--!></div>" >> "${index}"
+	fi
+}
+
+while read line
+do
+	go ${line}
+done < "${rep_loc}/hcs-reps"
+echo "HCS Reps done"
+while read line
+do
+	go ${line}
+done < "${rep_loc}/da-reps"
+echo "DA reps done"
+while read line
+do
+	go ${line}
+done < "${rep_loc}/exc-reps"
+echo "EXC reps done"
+
+echo "${start}" > ${index}
+echo "${main}" >> ${index}
+echo "${hcs}" >> ${index}
+write_html "${base}/hcs"
+echo "${da}" >> ${index}
+write_html "${base}/da"
+echo "${exc}" >> ${index}
+write_html "${base}/exc"
+echo "${end}" >> ${index}
+exit

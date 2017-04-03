@@ -1,0 +1,24 @@
+.sidebar {
+	color: #777;
+	margin-top: 100pt;
+}
+.fa-custom {
+	font-family: sans;
+}
+.icon-link a {
+	color: #555;
+}
+.icon-link a:hover {
+	color: #222;
+}
+.fix-space {
+	margin-top: -90pt;
+}
+.vertical-align {
+	display: inline-block;
+	vertical-align: middle;
+	float: none;
+}
+.quiver-list img {
+	margin-bottom: 10pt;
+}

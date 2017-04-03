@@ -1,0 +1,25 @@
+.sidebar {
+	color: #777;
+	margin-top: 60pt;
+}
+.fa-custom {
+	font-family: sans;
+}
+.icon-link a {
+	color: #555;
+}
+.icon-link a:hover {
+	color: #222;
+}
+.fix-space {
+	margin-top: -50pt;
+}
+.rel-links {
+	line-height: 1;
+}
+.dl-horizontal dd {
+	padding-bottom: .5em;
+}
+.page-header {
+	padding-left: 15px;
+}

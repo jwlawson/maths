@@ -1,0 +1,25 @@
+#!/bin/bash
+out="out"
+gr="gr"
+
+rep="$1"
+qvmovecl -m "${rep}" > "${out}"
+qvtrim -g -i "${out}" -o "${gr}"
+
+num=`cat "${gr}" | wc -l`
+qvdraw -n -o "-width 225" "${gr}"
+chmod o+r *.pics
+for ((i=1;i<=num;i++))
+do
+	mkdir -p ${i}
+	cd ${i}
+	matrix=`sed -n "${i}p" ../${gr}`
+	qvtrim -i "../${out}" -g -m "${matrix}" | qvdraw -o "-width 225"
+	pics=*.png
+	for p in ${pics}
+	do
+		convert ${p} -quality 90 -colors 16 -depth 4 ${p}
+	done
+	chmod o+r ${pics}
+	cd ..
+done

@@ -1,0 +1,181 @@
+#!/bin/bash
+pushd . > /dev/null
+SCRIPT_PATH="${BASH_SOURCE[0]}";
+if ([ -h "${SCRIPT_PATH}" ]) then
+  while([ -h "${SCRIPT_PATH}" ]) do cd `dirname "$SCRIPT_PATH"`; SCRIPT_PATH=`readlink "${SCRIPT_PATH}"`; done
+fi
+cd `dirname ${SCRIPT_PATH}` > /dev/null
+SCRIPT_PATH=`pwd`;
+popd  > /dev/null
+bin="${SCRIPT_PATH}"
+base="${SCRIPT_PATH}"
+idir="${base}/img"
+index="${base}/index1.html"
+rep_loc="/home/grads/njcz19/result"
+
+
+start='<!DOCTYPE html>
+<html>
+<head>
+	<!--[if lt IE 9]>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/r29/html5.min.js"></script>
+	<![endif]-->
+  <title>Mutation-finite quivers</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+<nav class="navbar navbar-static-top navbar-default" role="navigation">
+<div class="container">
+<ul class="nav navbar-nav">
+	<li>
+		<a href="../">MMI</a>
+	</li>
+	<li>
+		<a href="../software/">Software</a>
+	</li>
+	<li>
+		<a href="../quivers/">MMI quivers database</a>
+	</li>
+	<li class=active>
+		<a href="../finite/">Mutation-finite quivers</a>
+	</li>
+</ul>
+</div>
+</nav>
+<div class="container">
+<div class="row">
+<div class="col-md-9 col-xs-12 main-text" role="main">'
+
+end='</div>
+<div class="col-md-3 col-xs-8 col-xs-offset-2 col-md-offset-0 sidebar" role="complementary">
+	<div class="fix-space visible-sm-block visible-xs-block"></div>
+'"${sidebar}"'
+</div>
+</div>'
+
+main='<h1>Mutation-finite quivers</h1>
+<p>Below is a list of all the class representatives of the quiver
+mutation-classes. Clicking on a quiver will lead to a page
+showing all quivers in that class.</p>
+<p>Quick links to the mutation-classes of Dynkin type quivers:</p>
+<ul class="list-unstyled">
+	<li><ul class="nav nav-pills">
+		<li><a href="./2/2.html">A2</a></li>
+		<li><a href="./3/3.html">A3</a></li>
+		<li><a href="./4/4.html">A4</a></li>
+		<li><a href="./5/6.html">A5</a></li>
+		<li><a href="./6/11.html">A6</a></li>
+		<li><a href="./7/13.html">A7</a></li>
+		<li><a href="./8/17.html">A8</a></li>
+		<li><a href="./9/23.html">A9</a></li>
+	</ul></li>
+	<li><ul class="nav nav-pills">
+		<li><a href="./4/5.html">D4</a></li>
+		<li><a href="./5/7.html">D5</a></li>
+		<li><a href="./6/12.html">D6</a></li>
+		<li><a href="./7/14.html">D7</a></li>
+		<li><a href="./8/18.html">D8</a></li>
+		<li><a href="./9/24.html">D9</a></li>
+	</ul></li>
+	<li><ul class="nav nav-pills">
+		<li><a href="./6/13.html">E6</a></li>
+		<li><a href="./7/15.html">E7</a></li>
+		<li><a href="./8/19.html">E8</a></li>
+	</ul></li>
+</ul>
+<p>Affine types:</p>
+<ul class="list-unstyled">
+	<li><ul class="nav nav-pills">
+		<li><a href="./3/2.html">A(2,1)</a></li>
+		<li><a href="./4/2.html">A(3,1)</a></li>
+		<li><a href="./4/3.html">A(2,2)</a></li>
+		<li><a href="./5/3.html">A(4,1)</a></li>
+		<li><a href="./5/4.html">A(3,2)</a></li>
+		<li><a href="./6/6.html">A(5,1)</a></li>
+		<li><a href="./6/7.html">A(4,2)</a></li>
+		<li><a href="./6/8.html">A(3,3)</a></li>
+		<li><a href="./7/8.html">A(6,1)</a></li>
+		<li><a href="./7/9.html">A(5,2)</a></li>
+		<li><a href="./7/10.html">A(4,3)</a></li>
+		<li><a href="./8/10.html">A(7,1)</a></li>
+		<li><a href="./8/11.html">A(6,2)</a></li>
+		<li><a href="./8/12.html">A(5,3)</a></li>
+		<li><a href="./8/14.html">A(4,4)</a></li>
+		<li><a href="./9/16.html">A(8,1)</a></li>
+		<li><a href="./9/17.html">A(7,2)</a></li>
+		<li><a href="./9/18.html">A(6,3)</a></li>
+		<li><a href="./9/20.html">A(5,4)</a></li>
+	</ul></li>
+	<li><ul class="nav nav-pills">
+		<li><a href="./5/5.html">D4</a></li>
+		<li><a href="./6/9.html">D5</a></li>
+		<li><a href="./7/11.html">D6</a></li>
+		<li><a href="./8/13.html">D7</a></li>
+		<li><a href="./9/19.html">D8</a></li>
+	</ul></li>
+	<li><ul class="nav nav-pills">
+		<li><a href="./7/12.html">E6</a></li>
+		<li><a href="./8/15.html">E7</a></li>
+		<li><a href="./9/21.html">E8</a></li>
+	</ul></li>
+</ul>'
+
+function add_pics {
+	pics=$@
+	count=0
+	inside=false
+	for p in ${pics}
+	do
+		pres_dir=`pwd`
+		cur_dir=`basename ${pres_dir}`
+		p_base=`basename ${p} .png`
+		rem=$((count % 3))
+		(( count++ ))
+		if [ ${rem} -eq 0 ]
+		then
+			echo "<div class="\""row quiver-list"\""><!--" >> "${index}"
+			inside=true
+		fi
+		echo "--!><div class="\""col-sm-4 col-xs-12 vertical-align"\"">
+			<a href="\""./${cur_dir}/${p_base}.html"\""><img src="\""./img/${cur_dir}/${p_base}.png"\""></a>
+		</div><!--" >> "${index}"
+		if [ ${rem} -eq 2 ]
+		then
+			echo "--!></div>" >> "${index}"
+			inside=false
+		fi
+	done
+	if [ "${inside}" = "true" ]
+	then
+		echo "--!></div>" >> "${index}"
+	fi
+}
+
+
+echo "${start}" > ${index}
+echo "${main}" >> ${index}
+mkdir -p ${idir}
+for i in {2..2}
+do
+	echo "<h3>${i} vertex quivers</h3>" >> ${index}
+	cd ${idir}
+	mkdir -p ${i}
+	cd ${i}
+#	bash ${bin}/gr_draw ${i}
+	pics=`ls *.png | sort -V`
+	add_pics ${pics}
+	cd ${base}
+	mkdir -p ${i}
+	cd ${i}
+	bash ${bin}/web_up
+	cd ${base}
+	echo "${i} vertex quivers done"
+done
+
+echo "${end}" >> ${index}
+exit

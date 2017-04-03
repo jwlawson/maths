@@ -1,0 +1,118 @@
+#!/bin/bash
+start='<!DOCTYPE html>
+<html>
+<head>
+	<!--[if lt IE 9]>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/r29/html5.min.js"></script>
+	<![endif]-->
+  <title>MMI Class</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../../style.css">
+</head>
+
+<body>
+<nav class="navbar navbar-static-top navbar-default" role="navigation">
+<div class="container">
+<ul class="nav navbar-nav">
+	<li>
+		<a href="../../">MMI</a>
+	</li>
+	<li>
+		<a href="../../software/">Software</a>
+	</li>
+	<li class=active>
+		<a href="../../quivers/">MMI quivers database</a>
+	</li>
+	<li>
+		<a href="../../finite/">Mutation-finite quivers</a>
+	</li>
+</ul>
+</div>
+</nav>
+<div class="container">
+<div class="row">
+<div class="col-md-9 col-xs-12 main-text" role="main">'
+
+end='</div>
+<div class="col-md-3 col-xs-8 col-xs-offset-2 col-md-offset-0 sidebar" role="complementary">
+	<div class="fix-space visible-sm-block visible-xs-block"></div>
+'"${sidebar}"'
+</div>
+</div>'
+
+class='<h1>Move-class of quivers</h1>
+<p>Below are all the unoriented graphs of which at least one orientation is
+contained in the move-class. Clicking on a graph will show all orientations of
+that graph which form quivers in the class.</p>
+<p>In most cases any loops in the graph will be cyclically oriented and any
+tree like sections will have any orientation.</p>'
+
+orien='<h1>Orientations of quiver in class</h1>
+<p>Orientations of the quiver which appear in the move-class.</p>'
+
+pres=`pwd`
+cur=`basename ${pres}`
+idir="../img/${cur}"
+gr="${idir}/gr"
+num=`cat ${gr} | wc -l`
+
+index="index.html"
+echo "${start}" > "${index}"
+echo "${class}" >> "${index}"
+i_ins=false
+for ((i=1;i<=num;i++))
+do
+	page="${i}.html"
+	inside=false
+	count=0
+	echo "${start}" > "${page}"
+	echo "${orien}" >> "${page}"
+	files="${idir}/${i}/"*
+	for file in ${files}
+	do
+		rem=$((count%3))
+		if [ ${rem} -eq 0 ]
+		then
+			echo "<div class="\""row quiver-list"\""><!--" >> "${page}"
+			inside=true
+		fi
+		echo "--!><div class="\""col-sm-4 col-xs-12 vertical-align"\"">
+			<img src="\""${idir}/${i}/`basename ${file}`"\"">
+		</div><!--" >> "${page}"
+		if [ ${rem} -eq 2 ]
+		then
+			echo "--!></div>" >> "${page}"
+			inside=false
+		fi
+		(( ++count ))
+	done
+	if [ ${inside} = "true" ]
+	then
+		echo "--!></div>" >> "${page}"
+	fi
+	echo "${end}" >> ${page}
+	
+	i_rem=$((i%3 - 1))
+	if [ ${i_rem} -eq 0 ]
+	then
+		echo "<div class="\""row quiver-list"\""><!--" >> "${index}"
+		i_ins=true
+	fi
+	echo "--!><div class="\""col-sm-4 col-xs-12 vertical-align"\"">
+		<a href="\""./${page}"\""><img src="\""${idir}/${i}.png"\""></a>
+	</div><!--" >> "${index}"
+	if [ ${i_rem} -eq 2 ]
+	then
+		echo "--!></div>" >> "${index}"
+		i_ins=false
+	fi
+done
+
+if [ ${i_ins} ]
+then
+	echo "--!></div>" >> "${index}"
+fi
+echo "${end}" >> "${index}"

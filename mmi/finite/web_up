@@ -1,0 +1,88 @@
+#!/bin/bash
+start='<!DOCTYPE html>
+<html>
+<head>
+	<!--[if lt IE 9]>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/r29/html5.min.js"></script>
+	<![endif]-->
+  <title>Mutation-class</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../../style.css">
+</head>
+
+<body>
+<nav class="navbar navbar-static-top navbar-default" role="navigation">
+<div class="container">
+<ul class="nav navbar-nav">
+	<li>
+		<a href="../../">MMI</a>
+	</li>
+	<li>
+		<a href="../../software/">Software</a>
+	</li>
+	<li>
+		<a href="../../quivers/">MMI quivers database</a>
+	</li>
+	<li class=active>
+		<a href="../../finite/">Mutation-finite quivers</a>
+	</li>
+</ul>
+</div>
+</nav>
+<div class="container">
+<div class="row">
+<div class="col-md-9 col-xs-12 main-text" role="main">'
+
+end='</div>
+<div class="col-md-3 col-xs-8 col-xs-offset-2 col-md-offset-0 sidebar" role="complementary">
+	<div class="fix-space visible-sm-block visible-xs-block"></div>
+'"${sidebar}"'
+</div>
+</div>'
+
+orien='<h1>Mutation-class</h1>
+<p>The full quiver mutation-class.</p>'
+
+pres=`pwd`
+cur=`basename ${pres}`
+idir="../img/${cur}"
+
+pics="${idir}"/*.png
+for p in ${pics}
+do
+	i=`basename ${p} .png`
+	page="${i}.html"
+	inside=false
+	count=0
+	echo "${start}" > "${page}"
+	echo "${orien}" >> "${page}"
+	files="${idir}/${i}/"*
+	for file in ${files}
+	do
+		rem=$((count%3))
+		if [ ${rem} -eq 0 ]
+		then
+			echo "<div class="\""row quiver-list"\""><!--" >> "${page}"
+			inside=true
+		fi
+		echo "--!><div class="\""col-sm-4 col-xs-12 vertical-align"\"">
+			<img src="\""${idir}/${i}/`basename ${file}`"\"">
+		</div><!--" >> "${page}"
+		if [ ${rem} -eq 2 ]
+		then
+			echo "--!></div>" >> "${page}"
+			inside=false
+		fi
+		(( ++count ))
+	done
+	if [ ${inside} = "true" ]
+	then
+		echo "--!></div>" >> "${page}"
+	fi
+	echo "${end}" >> ${page}
+	chmod o+r ${page}
+done
+
